@@ -2,6 +2,7 @@ import React from "react";
 import SideBar from "../../components/SideBar/SideBar";
 import { Flex } from "@chakra-ui/react";
 import Resultados from "../Resultados/Resultados";
+import AddExame from "../../components/AddExame/AddExame";
 
 function ControlPanel() {
     return (
@@ -9,7 +10,13 @@ function ControlPanel() {
             className="ControlPanel"
             justifyContent="space-between">
             <SideBar />
-            <Resultados />
+            <Flex
+              flexDirection="column"
+              w="100%"
+              >
+              <AddExame />
+              <Resultados />
+            </Flex>
         </Flex>
     )
     }
