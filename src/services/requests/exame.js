@@ -8,9 +8,7 @@ export const exame = api => ({
         "patient": paciente.patient,
         "age": paciente.age,
         "sex": paciente.sex,
-        "result_exam": "",
         "anexos": [],
-        "feedback": "",
       }
       // adicionar a possibilidade de anexar mais de um arquivo
       // const bodyFormData = new FormData();

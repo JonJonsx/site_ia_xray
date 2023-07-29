@@ -1,5 +1,6 @@
 import React from "react"
 
+
 import {
   Drawer,
   DrawerBody,
@@ -81,7 +82,7 @@ export default function DrawerExame() {
               </Box>
               <Box textColor="#000000">
                 <Text>Sexo do paciente:</Text>
-                <RadioGroup onChange={(value) => handleOnChange(value, 'sex')} value={exame.sex}>
+                <RadioGroup onChange={(value) => handleOnChange(value, 'sex')}>
                   <Stack direction='column' textColor="#000000">
                     <Radio value='1'>Masculino</Radio>
                     <Radio value='2'>Feminino</Radio>
