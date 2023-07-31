@@ -10,6 +10,9 @@ import { React, useState }from "react";
 import { Menu, Home } from 'react-feather';
 import NavItem from "./NavItem";
 
+import {Link} from "react-router-dom";
+
+
 function SideBar() {
   const [navSize, changeNavSize] = useState("large")
   return (
@@ -23,6 +26,7 @@ function SideBar() {
       boxShadow="0 4px 12px 0 rgba(0,0,0,0.05)"
       borderRadius={navSize === "small" ? "15px" : "15px"}
       w={navSize === "small" ? "75px" : "200px"}
+      maxWidth={200}
       flexDir="column"
       justifyContent="space-between">
       <Flex
@@ -44,8 +48,8 @@ function SideBar() {
             }
           }}
         />
-        <NavItem navSize={navSize} icon={Home} title="DashBoard"/>
-        <NavItem navSize={navSize} icon={Home} title="Resultados"/>
+        <Link to="/"><NavItem navSize={navSize} icon={Home} title="DashBoard"/></Link>
+        <Link to="/controlpanel"><NavItem navSize={navSize} icon={Home} title="Resultados"/></Link>
       </Flex>
       <Flex
         p="5%"

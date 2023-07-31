@@ -1,6 +1,7 @@
-div {
-    color: #ffffff;
-}
 path, polyline{
     color: #ffffff;
+}
+
+.error-message {
+    color: rgb(240, 47, 47);
 }

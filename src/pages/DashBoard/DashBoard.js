@@ -1,9 +1,7 @@
 import React from "react";
 import { Flex } from "@chakra-ui/react";
-import Resultados from "../Resultados/Resultados";
-import AddExame from "../../components/AddExame/AddExame";
 
-function ControlPanel() {
+function DashBoard() {
     return (
         <Flex 
             w="100%"
@@ -13,11 +11,9 @@ function ControlPanel() {
               flexDirection="column"
               w="100%"
               >
-              <AddExame />
-              <Resultados />
             </Flex>
         </Flex>
     )
 }
 
-export default ControlPanel;
+export default DashBoard;

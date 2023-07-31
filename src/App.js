@@ -1,14 +1,18 @@
 import React from 'react';
-import ControlPanel from './pages/ControlPanel/ControlPanel';
 import './styles/global.css'
+
+import { Outlet } from 'react-router-dom';
+import SideBar from './components/SideBar/SideBar';
+import { Flex } from '@chakra-ui/react';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <ControlPanel/>
-      </header>
-    </div>
+      <Flex>
+        <SideBar />
+        <Outlet />
+      </Flex>
+    </div >
   );
 }
 
