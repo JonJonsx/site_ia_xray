@@ -1,5 +1,4 @@
 import {
-  Button,
   Flex,
   Text,
   Grid,
@@ -8,6 +7,7 @@ import {
 import React from "react";
 import { Book, Eye } from "react-feather";
 import ModalExame from "../../components/ModalExame/ModalExame";
+import DrawerFeedback from "../../components/Feedback/DrawerFeedback";
 
 export default function ResultExame(props) {
   const { paciente, resultado, dadosExame } = props
@@ -40,14 +40,7 @@ export default function ResultExame(props) {
         justifyContent="flex-end"
         alignItems="center"
       >
-        <Button
-          color="#ffffff"
-          leftIcon={<Book />}
-          backgroundColor='#0984E3'
-          variant='solid'
-          mr={4}
-          _hover={{ backgroundColor: "#3498DB" }}
-        >Dar Feedback</Button>
+        <DrawerFeedback iconButton={<Book/>} textoButton="Dar Feedback" dadosDrawer={dadosExame}/>
         <ModalExame iconButton={<Eye/>} textoButton="Ver resultado" dadosModal={dadosExame}/>
       </Flex>
     </Flex>

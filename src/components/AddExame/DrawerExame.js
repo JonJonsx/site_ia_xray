@@ -24,8 +24,8 @@ import {
 
 const validationExam = yup.object().shape({
   patient: yup.string().required('O nome é obrigatório')
-    .max(100, 'O nome deve ter no máximo 100 caracteres')
-    .min(10, 'O nome deve ter no mínimo 10 caracteres'),
+  .max(100, 'O nome deve ter no máximo 100 caracteres')
+  .min(10, 'O nome deve ter no mínimo 10 caracteres'),
   age: yup.string().required('A idade é obrigatória'),
 })
 
@@ -35,12 +35,13 @@ export default function DrawerExame() {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = React.useRef()
 
-  const { register, handleSubmit, formState: { errors } } = useForm({
+  const { register, handleSubmit, formState: {errors} } = useForm({
     resolver: yupResolver(validationExam)
   })
 
-  const novoExame = (data) => requests.exames.postNovoExame(data).then((response) => {
-    console.log("requisicão funcionou")
+  const novoExame = (data) => requests.exames.postNovoExame(data).then((response) => { 
+
+
   }).catch((error) => {
     console.log("DEU ERRO")
   })
@@ -52,7 +53,7 @@ export default function DrawerExame() {
       <Button ref={btnRef} colorScheme='teal' onClick={onOpen}>
         Adicionar Exame
       </Button>
-
+      
       <Drawer
         isOpen={isOpen}
         placement='right'
@@ -61,58 +62,62 @@ export default function DrawerExame() {
         h="100%"
         size="lg"
       >
+        <form onSubmit={handleSubmit(novoExame)}>
         <DrawerOverlay />
         <DrawerContent>
-          <form onSubmit={handleSubmit(novoExame)}>
-            <DrawerCloseButton />
-            <DrawerHeader textColor="#000000">Novo Exame</DrawerHeader>
+        
+          <DrawerCloseButton />
+          <DrawerHeader textColor="#000000">Novo Exame</DrawerHeader>
 
-            <DrawerBody>
-              <Stack>
-                <Box textColor="#000000">
-                  <Text>Nome do paciente:</Text>
-                  <Input
-                    name="patient"
-                    placeholder='Paciente'
-                    {...register('patient')} />
-                  <Text className="error-message">{errors.patient?.message}</Text>
-                </Box>
-                <Box textColor="#000000">
-                  <Text>Idade do paciente:</Text>
-                  <Input
-                    name="age"
-                    {...register('age')}
-                    type="date" />
-                  <Text className="error-message">{errors.age?.message}</Text>
-                </Box>
-                <Box textColor="#000000">
-                  <Text>Sexo do paciente:</Text>
-                  <RadioGroup name="sex" {...register('sex')} type="radio">
-                    <Stack direction='column' textColor="#000000">
-                      <Radio value='1'>Masculino</Radio>
-                      <Radio value='2'>Feminino</Radio>
-                      <Radio value='3'>Outro</Radio>
-                    </Stack>
-                  </RadioGroup>
-                </Box>
-                {/* <Box>
+          <DrawerBody>
+          
+            <Stack>
+              <Box textColor="#000000">
+                <Text>Nome do paciente:</Text>
+                <Input
+                  name="patient"
+                  placeholder='Paciente'
+                  {...register('patient')}/>
+                <Text className="error-message">{errors.patient?.message}</Text>
+              </Box>
+              <Box textColor="#000000">
+                <Text>Idade do paciente:</Text>
+                <Input
+                  name="age"
+                  {...register('age')}
+                  type="date"/>
+                <Text className="error-message">{errors.age?.message}</Text>
+              </Box>
+              <Box textColor="#000000">
+                <Text>Sexo do paciente:</Text>
+                <RadioGroup name="sex" {...register('sex')} type="radio">
+                  <Stack direction='column' textColor="#000000">
+                    <Radio value='1'>Masculino</Radio>
+                    <Radio value='2'>Feminino</Radio>
+                    <Radio value='3'>Outro</Radio>
+                  </Stack>
+                </RadioGroup>
+              </Box>
+              {/* <Box>
                 <Text textColor="#000000">Arquivo de Radiografia:</Text>
                 <Dropzone />
               </Box> */}
-              </Stack>
-            </DrawerBody>
+            </Stack>
+            
+          
+          </DrawerBody>
 
 
-            <DrawerFooter>
-              <Button variant='outline' mr={3} onClick={onClose}>
-                Cancel
-              </Button>
-              <Button colorScheme='blue' type="submit">Enviar</Button>
-            </DrawerFooter>
-          </form>
+          <DrawerFooter>
+            <Button variant='outline' mr={3} onClick={onClose}>
+              Cancel
+            </Button>
+            <Button colorScheme='blue' type="submit">Enviar</Button>
+          </DrawerFooter>
         </DrawerContent>
+        </form>
       </Drawer>
-
+      
     </>
   )
 }

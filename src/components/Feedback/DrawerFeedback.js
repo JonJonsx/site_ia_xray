@@ -18,8 +18,8 @@ import {
   Stack,
   Box,
   Text,
-  RadioGroup,
-  Radio
+  Textarea,
+  Image
 } from '@chakra-ui/react'
 
 const validationExam = yup.object().shape({
@@ -31,11 +31,11 @@ export default function DrawerFeedback(props) {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = React.useRef()
 
-  const { register, handleSubmit, formState: {errors} } = useForm({
+  const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(validationExam)
   })
 
-  const novoExame = (data) => requests.exames.postNovoExame(data).then((response) => { 
+  const novoExame = (data) => requests.exames.postNovoExame(data).then((response) => {
 
 
   }).catch((error) => {
@@ -47,14 +47,14 @@ export default function DrawerFeedback(props) {
   return (
     <>
       <Button
-          color="#ffffff"
-          ref={btnRef}
-          leftIcon={iconButton}
-          backgroundColor='#0984E3'
-          variant='solid'
-          _hover={{ backgroundColor: "#3498DB" }}
-          onClick={onOpen}
-        >{textoButton}</Button>
+        color="#ffffff"
+        ref={btnRef}
+        leftIcon={iconButton}
+        backgroundColor='#0984E3'
+        variant='solid'
+        _hover={{ backgroundColor: "#3498DB" }}
+        onClick={onOpen}
+      >{textoButton}</Button>
       <Drawer
         isOpen={isOpen}
         placement='right'
@@ -63,53 +63,95 @@ export default function DrawerFeedback(props) {
         h="100%"
         size="lg"
       >
+        <form onSubmit={handleSubmit(novoExame)}>
         <DrawerOverlay />
         <DrawerContent>
-        <form onSubmit={handleSubmit(novoExame)}>
-          <DrawerCloseButton />
-          <DrawerHeader textColor="#000000">Novo Exame</DrawerHeader>
+            <DrawerCloseButton />
+            <DrawerHeader textColor="#000000">Novo Exame</DrawerHeader>
 
-          <DrawerBody>
-            <Stack>
-              <Box textColor="#000000">
-                <Text>Nome do paciente:</Text>
-                <Input
-                  name="patient"
-                  placeholder='Paciente'
-                  {...register('patient')}/>
-              </Box>
-              <Box textColor="#000000">
-                <Text>Idade do paciente:</Text>
-                <Input
-                  name="age"
-                  {...register('age')}
-                  type="date"/>
-              </Box>
-              <Box textColor="#000000">
-                <Text>Idade do paciente:</Text>
-                <Input
-                  name="age"
-                  {...register('age')}
-                  type="date"/>
-              </Box>
-              {/* <Box>
+            <DrawerBody>
+            
+              <Stack>
+                <Box>
+                  <Text>Nome do paciente:</Text>
+                  <Input
+                    name="patient"
+                    placeholder={dadosDrawer.patient}
+                    isDisabled />
+                </Box>
+                <Box>
+                  <Text>Data de Nascimento:</Text>
+                  <Input
+                    name="age"
+                    placeholder={dadosDrawer.age}
+                    isDisabled />
+                </Box>
+                <Box>
+                  <Text>Sexo do Paciente:</Text>
+                  <Input
+                    name="sex"
+                    type="text"
+                    placeholder={dadosDrawer.sex}
+                    isDisabled />
+                </Box>
+                <Box>
+                  <Text>Sexo do Paciente:</Text>
+                  <Input
+                    name="sex"
+                    type="text"
+                    placeholder={dadosDrawer.sex}
+                    isDisabled />
+                </Box>
+                <Box>
+                  <Text>Sexo do Paciente:</Text>
+                  <Input
+                    name="sex"
+                    type="text"
+                    placeholder={dadosDrawer.sex}
+                    isDisabled />
+                </Box>
+                <Box>
+                  <Text>Sexo do Paciente:</Text>
+                  <Input
+                    name="sex"
+                    type="text"
+                    placeholder={dadosDrawer.sex}
+                    isDisabled />
+                </Box>
+                <Box>
+                  <Text>Resultado do Exame:</Text>
+                  <Textarea
+                    name="result_exam"
+                    type="text"
+                    placeholder={dadosDrawer.result_exam}
+                    isDisabled />
+                </Box>
+                <Box>
+                  <Text>Anexos do Exame:</Text>
+                  <Box boxSize='sm'>
+                    <Image src='https://bit.ly/dan-abramov' alt='Dan Abramov' />
+                  </Box>
+                </Box>
+                {/* <Box>
                 <Text textColor="#000000">Arquivo de Radiografia:</Text>
                 <Dropzone />
               </Box> */}
-            </Stack>
-          </DrawerBody>
+              </Stack>
+              
+            </DrawerBody>
 
 
-          <DrawerFooter>
-            <Button variant='outline' mr={3} onClick={onClose}>
-              Cancel
-            </Button>
-            <Button colorScheme='blue' type="submit">Enviar</Button>
-          </DrawerFooter>
-          </form>
+            <DrawerFooter>
+              <Button variant='outline' mr={3} onClick={onClose}>
+                Cancel
+              </Button>
+              <Button colorScheme='blue' type="submit">Enviar</Button>
+            </DrawerFooter>
+
         </DrawerContent>
+        </form>
       </Drawer>
-      
+
     </>
   )
 }
