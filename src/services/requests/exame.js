@@ -6,7 +6,8 @@ export const exame = api => ({
     postNovoExame(paciente) {
       const dados = {
         "patient": paciente.patient,
-        "age": paciente.age
+        "age": paciente.age,
+        "sex": paciente.sex
       }
       // adicionar a possibilidade de anexar mais de um arquivo
       // const bodyFormData = new FormData();

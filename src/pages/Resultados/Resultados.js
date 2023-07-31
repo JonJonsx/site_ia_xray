@@ -47,6 +47,7 @@ export default function Resultados() {
       mr={5}
       ml={5}
       w="98%"
+      overflowY="scroll"
     >
       <Box w="100%" borderRadius={8}>
         {

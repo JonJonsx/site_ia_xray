@@ -67,8 +67,8 @@ export default function DrawerFeedback(props) {
         <form onSubmit={handleSubmit(novoExame)}>
         <DrawerOverlay />
         <DrawerContent>
-            <DrawerCloseButton />
-            <DrawerHeader textColor="#000000">Novo Exame</DrawerHeader>
+            <DrawerCloseButton bg="#e74c3c"/>
+            <DrawerHeader textColor="#000000">FeedBack</DrawerHeader>
 
             <DrawerBody>
             
@@ -106,7 +106,7 @@ export default function DrawerFeedback(props) {
                 <Box>
                   <Text>Anexos do Exame:</Text>
                   <Flex justifyContent="space_between" alignItems="center" flexWrap="wrap">
-                    <Image src='https://bit.ly/dan-abramov' alt='Dan Abramov' m={2}/>
+                    <Image src='https://www.msdmanuals.com/-/media/manual/professional/images/m/2/7/m2700245-tuberculosis-chest-x-ray-science-photo-library-high_pt.jpg?mw=704&amp;thn=0&amp;sc_lang=pt-br' alt='Dan Abramov' m={2}/>
                   </Flex>
                 </Box>
                 <Box>

@@ -9,7 +9,8 @@ function ControlPanel() {
             w="100%"
             mr={2}
             className="ControlPanel"
-            justifyContent="space-between">
+            justifyContent="space-between"
+            h="98vh">
             <Flex
               flexDirection="column"
               w="100%"

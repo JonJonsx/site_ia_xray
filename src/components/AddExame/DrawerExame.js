@@ -18,8 +18,7 @@ import {
   Stack,
   Box,
   Text,
-  RadioGroup,
-  Radio
+  Select
 } from '@chakra-ui/react'
 
 const validationExam = yup.object().shape({
@@ -66,7 +65,7 @@ export default function DrawerExame() {
         <DrawerOverlay />
         <DrawerContent>
         
-          <DrawerCloseButton />
+          <DrawerCloseButton bg="#e74c3c"/>
           <DrawerHeader textColor="#000000">Novo Exame</DrawerHeader>
 
           <DrawerBody>
@@ -90,13 +89,18 @@ export default function DrawerExame() {
               </Box>
               <Box textColor="#000000">
                 <Text>Sexo do paciente:</Text>
-                <RadioGroup name="sex" {...register('sex')} type="radio">
+                {/* <RadioGroup name="sex" {...register('sex')} type="radio">
                   <Stack direction='column' textColor="#000000">
                     <Radio value='1'>Masculino</Radio>
                     <Radio value='2'>Feminino</Radio>
                     <Radio value='3'>Outro</Radio>
                   </Stack>
-                </RadioGroup>
+                </RadioGroup> */}
+                <Select placeholder='Select option' name="sex" {...register('sex')}>
+                  <option value='1'>Masculino</option>
+                  <option value='2'>Feminino</option>
+                  <option value='3'>Outro</option>
+                </Select>
               </Box>
               {/* <Box>
                 <Text textColor="#000000">Arquivo de Radiografia:</Text>
