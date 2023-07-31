@@ -19,11 +19,12 @@ import {
   Box,
   Text,
   Textarea,
-  Image
+  Image,
+  Flex
 } from '@chakra-ui/react'
 
 const validationExam = yup.object().shape({
-  patient: yup.string().max(200, 'O nome deve ter no máximo 100 caracteres')
+  feedback: yup.string().max(200, 'O nome deve ter no máximo 100 caracteres')
 })
 
 export default function DrawerFeedback(props) {
@@ -35,11 +36,10 @@ export default function DrawerFeedback(props) {
     resolver: yupResolver(validationExam)
   })
 
-  const novoExame = (data) => requests.exames.postNovoExame(data).then((response) => {
-
-
+  const novoExame = (data) => requests.exames.putDarFeedback(dadosDrawer.id,data).then((response) => {
+    onClose()
   }).catch((error) => {
-    console.log("DEU ERRO")
+    console.log("DEU ERRO", error)
   })
 
 
@@ -54,6 +54,7 @@ export default function DrawerFeedback(props) {
         variant='solid'
         _hover={{ backgroundColor: "#3498DB" }}
         onClick={onOpen}
+        m={2}
       >{textoButton}</Button>
       <Drawer
         isOpen={isOpen}
@@ -61,7 +62,7 @@ export default function DrawerFeedback(props) {
         onClose={onClose}
         finalFocusRef={btnRef}
         h="100%"
-        size="lg"
+        size="xl"
       >
         <form onSubmit={handleSubmit(novoExame)}>
         <DrawerOverlay />
@@ -95,30 +96,6 @@ export default function DrawerFeedback(props) {
                     isDisabled />
                 </Box>
                 <Box>
-                  <Text>Sexo do Paciente:</Text>
-                  <Input
-                    name="sex"
-                    type="text"
-                    placeholder={dadosDrawer.sex}
-                    isDisabled />
-                </Box>
-                <Box>
-                  <Text>Sexo do Paciente:</Text>
-                  <Input
-                    name="sex"
-                    type="text"
-                    placeholder={dadosDrawer.sex}
-                    isDisabled />
-                </Box>
-                <Box>
-                  <Text>Sexo do Paciente:</Text>
-                  <Input
-                    name="sex"
-                    type="text"
-                    placeholder={dadosDrawer.sex}
-                    isDisabled />
-                </Box>
-                <Box>
                   <Text>Resultado do Exame:</Text>
                   <Textarea
                     name="result_exam"
@@ -128,9 +105,17 @@ export default function DrawerFeedback(props) {
                 </Box>
                 <Box>
                   <Text>Anexos do Exame:</Text>
-                  <Box boxSize='sm'>
-                    <Image src='https://bit.ly/dan-abramov' alt='Dan Abramov' />
-                  </Box>
+                  <Flex justifyContent="space_between" alignItems="center" flexWrap="wrap">
+                    <Image src='https://bit.ly/dan-abramov' alt='Dan Abramov' m={2}/>
+                  </Flex>
+                </Box>
+                <Box>
+                  <Text>FeedBack:</Text>
+                  <Textarea
+                    name="feedback"
+                    placeholder='Feedback'
+                    {...register('feedback')}/>
+                    <Text className="error-message">{errors.feedback?.message}</Text>
                 </Box>
                 {/* <Box>
                 <Text textColor="#000000">Arquivo de Radiografia:</Text>
@@ -151,7 +136,6 @@ export default function DrawerFeedback(props) {
         </DrawerContent>
         </form>
       </Drawer>
-
     </>
   )
 }

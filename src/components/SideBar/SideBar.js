@@ -9,7 +9,7 @@ import {
 import { React, useState }from "react";
 import { Menu, Home } from 'react-feather';
 import NavItem from "./NavItem";
-
+import "../../styles/components/sidebar.css";
 import {Link} from "react-router-dom";
 
 
@@ -28,7 +28,8 @@ function SideBar() {
       w={navSize === "small" ? "75px" : "200px"}
       maxWidth={200}
       flexDir="column"
-      justifyContent="space-between">
+      justifyContent="space-between"
+      className="sidebar_animation">
       <Flex
         p="5%"
         flexDir="column"

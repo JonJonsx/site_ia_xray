@@ -8,10 +8,9 @@ export default function AddExame() {
             borderRadius={16}
             // pos="sticky"
             // left="2"
-            marginTop="1.0vh"
-            mr={5}
-            ml={5}
-            w="98%"
+            mb={2}
+            mt={2}
+
             justifyContent="flex-end"
             >
             <DrawerExame/>

@@ -27,6 +27,7 @@ export default function ModalExame(props) {
           variant='solid'
           _hover={{ backgroundColor: "#3498DB" }}
           onClick={onOpen}
+          m={2}
         >{textoButton}</Button>
       <Modal isOpen={isOpen} size="xl" onClose={onClose} >
         <ModalOverlay />

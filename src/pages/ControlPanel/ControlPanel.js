@@ -7,6 +7,7 @@ function ControlPanel() {
     return (
         <Flex 
             w="100%"
+            mr={2}
             className="ControlPanel"
             justifyContent="space-between">
             <Flex
