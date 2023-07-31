@@ -40,8 +40,8 @@ export default function ResultExame(props) {
         justifyContent="flex-end"
         alignItems="center"
       >
-        <DrawerFeedback iconButton={<Book/>} textoButton="Dar Feedback" dadosDrawer={dadosExame}/>
-        <ModalExame iconButton={<Eye/>} textoButton="Ver resultado" dadosModal={dadosExame}/>
+        <DrawerFeedback iconButton={<Book/>} textoButton="Dar Feedback" dadosDrawer={dadosExame} key={dadosExame.id}/>
+        <ModalExame iconButton={<Eye/>} textoButton="Ver resultado" dadosModal={dadosExame} />
       </Flex>
     </Flex>
   )

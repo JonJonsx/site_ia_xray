@@ -36,8 +36,11 @@ export default function DrawerFeedback(props) {
     resolver: yupResolver(validationExam)
   })
 
-  const novoExame = (data) => requests.exames.putDarFeedback(dadosDrawer.id,data).then((response) => {
-    onClose()
+  const feadbackExame = (data) => requests.exames.putDarFeedback(dadosDrawer.id,data).then((response) => {
+    if(response.status === 200){
+      console.log("DEU CERTO")
+      onClose()
+    }
   }).catch((error) => {
     console.log("DEU ERRO", error)
   })
@@ -64,7 +67,7 @@ export default function DrawerFeedback(props) {
         h="100%"
         size="xl"
       >
-        <form onSubmit={handleSubmit(novoExame)}>
+        <form onSubmit={handleSubmit(feadbackExame)}>
         <DrawerOverlay />
         <DrawerContent>
             <DrawerCloseButton bg="#e74c3c"/>

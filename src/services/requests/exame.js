@@ -25,7 +25,7 @@ export const exame = api => ({
         "feedback": feedback
       }
 
-      return api.post("/exames/"+id,dados)
+      return api.put("/exames/1",dados)
     }
   }
 })
