@@ -20,7 +20,8 @@ export default function ResultExame(props) {
       w="100%"
       mt={2}
       padding={2}
-      borderRadius={8}>
+      borderRadius={8}
+      >
       <Flex
         color="#000000"
         w="100%"

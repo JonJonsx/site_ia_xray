@@ -19,10 +19,11 @@ function SideBar() {
     <Flex
       pos="sticky"
       color="white"
-      left="2"
       h="98vh"
       background="#0984E3"
       marginTop="1.0vh"
+      marginLeft={2}
+      marginRight={2}
       boxShadow="0 4px 12px 0 rgba(0,0,0,0.05)"
       borderRadius={navSize === "small" ? "15px" : "15px"}
       w={navSize === "small" ? "75px" : "200px"}

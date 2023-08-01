@@ -21,6 +21,8 @@ import {
   Select
 } from '@chakra-ui/react'
 
+import Dropzone from "./Dropzone"
+
 const validationExam = yup.object().shape({
   patient: yup.string().required('O nome é obrigatório')
   .max(100, 'O nome deve ter no máximo 100 caracteres')
@@ -29,8 +31,6 @@ const validationExam = yup.object().shape({
   sex: yup.string().required('O sexo do paciente é obrigatório'),
 })
 
-
-// import Dropzone from "./Dropzone"
 export default function DrawerExame() {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = React.useRef()
@@ -89,13 +89,6 @@ export default function DrawerExame() {
               </Box>
               <Box textColor="#000000">
                 <Text>Sexo do paciente:</Text>
-                {/* <RadioGroup name="sex" {...register('sex')} type="radio">
-                  <Stack direction='column' textColor="#000000">
-                    <Radio value='1'>Masculino</Radio>
-                    <Radio value='2'>Feminino</Radio>
-                    <Radio value='3'>Outro</Radio>
-                  </Stack>
-                </RadioGroup> */}
                 <Select placeholder='Select option' name="sex" {...register('sex')}>
                   <option value='1'>Masculino</option>
                   <option value='2'>Feminino</option>
@@ -103,10 +96,10 @@ export default function DrawerExame() {
                 </Select>
                 <Text className="error-message">{errors.sex?.message}</Text>
               </Box>
-              {/* <Box>
+              <Box>
                 <Text textColor="#000000">Arquivo de Radiografia:</Text>
                 <Dropzone />
-              </Box> */}
+              </Box>
             </Stack>
             
           
