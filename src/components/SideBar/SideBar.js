@@ -50,8 +50,8 @@ function SideBar() {
             }
           }}
         />
-        <Link to="/"><NavItem navSize={navSize} icon={Home} title="DashBoard"/></Link>
-        <Link to="/controlpanel"><NavItem navSize={navSize} icon={Home} title="Resultados"/></Link>
+        <Link to="/" className="nav_item_link"><NavItem navSize={navSize} icon={Home} title="DashBoard"/></Link>
+        <Link to="/controlpanel" className="nav_item_link"><NavItem navSize={navSize} icon={Home} title="Resultados"/></Link>
       </Flex>
       <Flex
         p="5%"

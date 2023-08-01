@@ -1,7 +1,6 @@
 .sidebar_animation{
     transition: all 0.5s ease-in-out;
 }
-
-.sidebar_animation button{
-    transition: all 0.5s ease-in-out;
+.nav_item_link{
+    width: 100%;
 }
