@@ -26,6 +26,7 @@ const validationExam = yup.object().shape({
   .max(100, 'O nome deve ter no máximo 100 caracteres')
   .min(10, 'O nome deve ter no mínimo 10 caracteres'),
   age: yup.string().required('A idade é obrigatória'),
+  sex: yup.string().required('O sexo do paciente é obrigatório'),
 })
 
 
@@ -39,8 +40,7 @@ export default function DrawerExame() {
   })
 
   const novoExame = (data) => requests.exames.postNovoExame(data).then((response) => { 
-
-
+    onClose()
   }).catch((error) => {
     console.log("DEU ERRO")
   })
@@ -101,6 +101,7 @@ export default function DrawerExame() {
                   <option value='2'>Feminino</option>
                   <option value='3'>Outro</option>
                 </Select>
+                <Text className="error-message">{errors.sex?.message}</Text>
               </Box>
               {/* <Box>
                 <Text textColor="#000000">Arquivo de Radiografia:</Text>
