@@ -13,7 +13,8 @@ import {
   Box,
   Stack,
   Image,
-  Flex
+  Flex,
+  Input
 } from '@chakra-ui/react'
 
 
@@ -43,29 +44,31 @@ export default function ModalExame(props) {
               <Text fontSize='3xl' textAlign="center">Informações do Paciente</Text>
               <Box>
                 <Text>Paciente:</Text>
-                <Text>{dadosModal.patient}</Text>
+                <Input 
+                isDisabled
+                placeholder={dadosModal.patient}/>
               </Box>
               <Box>
                 <Text>Sexo:</Text>
-                <Text>{dadosModal.sex}</Text>
+                <Input isDisabled placeholder={dadosModal.sex}/>
               </Box>
               <Box>
                 <Text>Data de nascimento:</Text>
-                <Text>{dadosModal.age}</Text>
+                <Input isDisabled placeholder={dadosModal.age}/>
               </Box>
             </Stack>
             <Stack>
               <Text fontSize='3xl' textAlign="center">Resultado</Text>
               <Box>
                 <Text>Resultado:</Text>
-                <Text>{dadosModal.result_exam}</Text>
-                <Flex justifyContent="center" alignItems="center">
+                <Input isDisabled placeholder={dadosModal.result_exam}/>
+                <Flex justifyContent="center" alignItems="center" mt="5px">
                   <Image src='https://www.msdmanuals.com/-/media/manual/professional/images/m/2/7/m2700245-tuberculosis-chest-x-ray-science-photo-library-high_pt.jpg?mw=704&amp;thn=0&amp;sc_lang=pt-br' boxSize='sm' alt='Dan Abramov'/>
                 </Flex>
               </Box>
               <Box>
                 <Text>Feedback:</Text>
-                <Text>{dadosModal.feedback}</Text>
+                <Input isDisabled placeholder={dadosModal.feedback}/>
               </Box>
             </Stack>
           </ModalBody>
