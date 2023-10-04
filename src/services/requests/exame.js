@@ -21,7 +21,6 @@ export const exame = api => ({
       return api.post("/exames",dados)
     },
     putDarFeedback(id, feedback) {
-
       return api.put("/exames/"+id,feedback)
     }
   }
