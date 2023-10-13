@@ -1,7 +1,7 @@
 export const exame = api => ({
   exames: {
     getExames() {
-      return api.get("/exames")
+      return api.get("/exame")
     },
     postNovoExame(paciente) {
       const dados = {
@@ -18,10 +18,10 @@ export const exame = api => ({
       //   });
       // }
 
-      return api.post("/exames",dados)
+      return api.post("/exame",dados)
     },
     putDarFeedback(id, feedback) {
-      return api.put("/exames/"+id,feedback)
+      return api.put("/exame/"+id,feedback)
     }
   }
 })

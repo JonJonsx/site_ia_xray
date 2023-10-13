@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form"
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { requests } from "../../services/api";
+import ButtonDownload from "../ButtonDownload/ButtonDownload";
 
 import {
   Drawer,
@@ -20,8 +21,10 @@ import {
   Text,
   Textarea,
   Image,
-  Flex
+  Flex,
+  IconButton
 } from '@chakra-ui/react'
+import { Eye } from "react-feather";
 
 const validationExam = yup.object().shape({
   feedback: yup.string().max(200, 'O nome deve ter no máximo 100 caracteres')
@@ -80,14 +83,14 @@ export default function DrawerFeedback(props) {
                   <Text>Nome do paciente:</Text>
                   <Input
                     name="patient"
-                    placeholder={dadosDrawer.patient}
+                    placeholder={dadosDrawer.paciente.nomePaciente}
                     isDisabled />
                 </Box>
                 <Box>
-                  <Text>Data de Nascimento:</Text>
+                  <Text>Idade:</Text>
                   <Input
                     name="age"
-                    placeholder={dadosDrawer.age}
+                    placeholder={dadosDrawer.paciente.idadePaciente}
                     isDisabled />
                 </Box>
                 <Box>
@@ -95,7 +98,7 @@ export default function DrawerFeedback(props) {
                   <Input
                     name="sex"
                     type="text"
-                    placeholder={dadosDrawer.sex}
+                    placeholder={dadosDrawer.paciente.generoPaciente === "F" ? "Feminino" : "Masculino"}
                     isDisabled />
                 </Box>
                 <Box>
@@ -103,20 +106,26 @@ export default function DrawerFeedback(props) {
                   <Textarea
                     name="result_exam"
                     type="text"
-                    placeholder={dadosDrawer.result_exam}
+                    placeholder={dadosDrawer.resultado === "No Finding" ? "Nenhum problema encontrado na radiografia" : dadosDrawer.resultado }
                     isDisabled />
                 </Box>
                 <Box>
                   <Text>Anexos do Exame:</Text>
-                  <Flex justifyContent="space_between" alignItems="center" flexWrap="wrap">
-                    <Image src='https://www.msdmanuals.com/-/media/manual/professional/images/m/2/7/m2700245-tuberculosis-chest-x-ray-science-photo-library-high_pt.jpg?mw=704&amp;thn=0&amp;sc_lang=pt-br' alt='Dan Abramov' m={2}/>
+                  <Flex  justifyContent="space-between" align="center" background="#2ecc71" padding={3} borderRadius={8} mb="10px" mt="10px">
+                    <Box>  
+                      <Image borderRadius={8} boxSize="50px" src='../../images/teste.jpg' alt='Dan Abramov'/>
+                    </Box>
+                    <Box>
+                      <IconButton mr="10px" background="#3498db" color="#ffffff" icon={<Eye/>}></IconButton>
+                      <ButtonDownload imageURL="../../images/teste.jpg" imageName="imagem.jpg"/>
+                    </Box>
                   </Flex>
                 </Box>
                 <Box>
                   <Text>FeedBack:</Text>
                   <Textarea
                     name="feedback"
-                    placeholder='Feedback'
+                    placeholder={dadosDrawer.feedbacks}
                     {...register('feedback')}/>
                     <Text className="error-message">{errors.feedback?.message}</Text>
                 </Box>

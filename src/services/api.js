@@ -6,13 +6,13 @@ import {exame} from "./requests/exame"
 // const token = accessToken ? `${accessToken.accessToken.accessToken}` : '';
 
 const api = axios.create({
-  baseURL: 'https://649884589543ce0f49e21cfa.mockapi.io',
-//   headers: {
-//     'Authorization': `${!token ? "" : "Bearer " + token}`,
-//     'Access-Control-Allow-Origin': '*',
-//     'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
-//     'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
-//   }
+  baseURL: 'http://localhost:8080',
+  headers: {
+    // 'Authorization': `${!token ? "" : "Bearer " + token}`,
+    // 'Access-Control-Allow-Origin': '*',
+    // 'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
+    // 'Access-Control-Allow-Headers': 'Content-Type, Authorization'
+  }
 })
 
 export const requests = {
