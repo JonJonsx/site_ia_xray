@@ -22,7 +22,7 @@ export default function GraficoLinha({ valorX, valorY, legenda, titulo }) {
       {
         label: legenda,
         data: valorX,
-        backgroundColor: "#FFFFFF"
+        backgroundColor: "red",
       }
     ]
   };
@@ -39,7 +39,7 @@ export default function GraficoLinha({ valorX, valorY, legenda, titulo }) {
             title: {
               display: true,
               text: titulo,
-              color: "#FFFFFF"
+              color: "black"
             },
             legend: {
               display: true,

@@ -19,11 +19,13 @@ function DashBoard() {
       className="ControlPanel"
       justifyContent="space-between">
         <Grid
+          templateRows='repeat(4, 1fr)'
           templateColumns='repeat(4, 1fr)'
-          templateRows='repeat(8, 1fr)'
-          gap={2} h="100%"
+          gap={2}
           mt={2}
-          mr={2}>
+          mr={2}
+          w="100%"
+          h="100%">
           <GridItem 
             rowSpan={1}
             colSpan={1}
@@ -53,10 +55,10 @@ function DashBoard() {
             colSpan={1}
             className="gridItemDash">
             <Flex flexDirection="column">
-              <Box h="33%">
+              <Box>
                 <GraficoPorDoenca />
               </Box>
-              <Box h="33%">
+              <Box>
                 <GraficoPorGenero />
               </Box>
               {/* <Box h="33%">
