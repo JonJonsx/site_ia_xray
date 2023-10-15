@@ -29,7 +29,7 @@ export default function GraficoPizza({ valorX, valorY, legenda, titulo }) {
 
 
   return (
-    <Flex h="100%" w="100%" align="center" justify="center">
+    <Flex w="100%" align="center" justify="center">
       <Pie
         data={data}
         options={{

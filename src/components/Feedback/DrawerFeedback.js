@@ -113,11 +113,11 @@ export default function DrawerFeedback(props) {
                   <Text>Anexos do Exame:</Text>
                   <Flex  justifyContent="space-between" align="center" background="#2ecc71" padding={3} borderRadius={8} mb="10px" mt="10px">
                     <Box>  
-                      <Image borderRadius={8} boxSize="50px" src='../../images/teste.jpg' alt='Dan Abramov'/>
+                      <Image borderRadius={8} boxSize="50px" src='localhost:8080/imagem/00000003_000.png' alt='Dan Abramov'/>
                     </Box>
                     <Box>
                       <IconButton mr="10px" background="#3498db" color="#ffffff" icon={<Eye/>}></IconButton>
-                      <ButtonDownload imageURL="../../images/teste.jpg" imageName="imagem.jpg"/>
+                      <ButtonDownload imageURL="localhost:8080/imagem/00000003_000.png" imageName="imagem.jpg"/>
                     </Box>
                   </Flex>
                 </Box>

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {exame} from "./requests/exame"
+import {grafico} from "./requests/grafico"
 
 // const accessToken = JSON.parse(sessionStorage.getItem('okta-token-storage'));
 
@@ -16,7 +17,8 @@ const api = axios.create({
 })
 
 export const requests = {
-  ...exame(api)
+  ...exame(api),
+  ...grafico(api)
 }
 
 export default api;

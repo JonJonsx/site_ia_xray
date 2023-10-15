@@ -52,7 +52,7 @@ export default function Resultados() {
       <Box w="100%" borderRadius={8}>
         <Flex alignItems="flex-end" w="100%" flexDirection="column">
           <Button bg="#2ecc71" color="#ffffff" _hover={{ backgroundColor: "#27ae60",color:"#ecf0f1"  }} leftIcon={<RefreshCcw/>} onClick={async () => {await getExames()}}>Atualizar Lista</Button>
-          {/* <a href="https://img.freepik.com/vetores-premium/conceito-plano-moderno-de-gerenciador-de-conteudo-para-design-de-banner-na-web-mulher-escreve-e-publica-artigo_9209-8160.jpg?w=2000" download="teste.jpg">Texto bonito</a> */}
+          {/* <a href="http://localhost:8080/imagem/00000003_000.png" download="teste.jpg">Texto bonito</a> */}
         </Flex>
         {
           exames.map((exame, index) => (

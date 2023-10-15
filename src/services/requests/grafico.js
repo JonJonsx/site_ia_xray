@@ -1,5 +1,5 @@
 export const grafico = api => ({
-    exames: {
+    graficos: {
       getCountGenero() {
         return api.get("/exame/countGenero")
       },

@@ -5,3 +5,7 @@ path, polyline{
 .error-message {
     color: rgb(240, 47, 47);
 }
+
+.App {
+    background-color: #f0f1f3;
+}
