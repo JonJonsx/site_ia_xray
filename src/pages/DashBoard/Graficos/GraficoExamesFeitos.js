@@ -1,40 +1,29 @@
+import { useEffect, useState } from 'react'
+import { requests } from '../../../services/api'
 import GraficoLinha from './tipoGrafico/GraficoLinha'
 
 export default function GraficoExamesFeitos() {
-  // const [chartData, setChartData] = useState([{}])
-  
-  // const getExames = async () => {
-  //   try{
-  //     await requests.exames.getExames().then((response) => {
-  //       if (response.status === 200) {
-  //         return response.data
-  //       } else {
-  //         console.log("falha na requisicao", response.status)
-  //       }
-  //     })
-  //   }catch (e) {
-  //     console.warn("Deu erro na requisicao do grafico de Linha, ERRO: ", e)
-  //     return { exame: { date: "", quantidadeDeExames: 0 } }
-  //   }
-    
-  // }
+  const [chartData, setChartData] = useState({})
 
-
-  // useEffect(() => {
-  //   const getValoresGrafico = async () => {
-  //     const data = await getExames()
-  //     setChartData(data)
-  //   }
-  //   getValoresGrafico()
-  // }, []);
+  useEffect(() => {
+    const getValoresGrafico = async () => {
+      await requests.graficos.getVisaoMesAMes().then((response) => {
+        if (response.status === 200) {
+          setChartData(response.data)
+        } else {
+          console.log("falha na requisicao", response.status)
+          setChartData({"2023/1":"26"})
+        }
+      })
+    }
+    getValoresGrafico()
+  }, []);
 
 
   return (
     <GraficoLinha
-      valorX={[100,120,150]}
-      // chartData.map(exame => exame.quantidadeDeExames)
-      valorY={["05-2023","06-2023","07-023"]}
-      // chartData.map(exame => exame.date)
+      valorX={Object.values(chartData)}
+      valorY={Object.keys(chartData)}
       legenda="Quantidade de exames"
       titulo="Visão mês a mês" />
   );
