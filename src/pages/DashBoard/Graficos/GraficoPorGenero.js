@@ -23,7 +23,7 @@ export default function GraficoPorGenero() {
   return (
     <GraficoPizza
       valorX={[dadosGrafico.Masculino,dadosGrafico.Feminino]}
-      valorY={ ["Masculino","feminino"] }
+      valorY={ ["Masculino","Feminino"] }
       legenda="Quantidade de exames por genero"
       titulo="Grafico Por doença" />
   );

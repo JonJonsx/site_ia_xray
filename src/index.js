@@ -6,9 +6,9 @@ import AppWithRouterAccess from './routes'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  //<React.StrictMode> //Causando conflito no keycloak
     <ChakraProvider>
       <AppWithRouterAccess />
     </ChakraProvider>
-  </React.StrictMode>
+  //</React.StrictMode>
 );

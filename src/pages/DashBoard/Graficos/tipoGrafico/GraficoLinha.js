@@ -4,6 +4,7 @@ import {
   Flex
 } from '@chakra-ui/react';
 import "chart.js/auto"
+import paletaCoresPasteis from "../../PaletaCoresPasteis";
 export default function GraficoLinha({ valorX, valorY, legenda, titulo }) {
 
   // Funcao que define uma cor aleatoria
@@ -22,7 +23,7 @@ export default function GraficoLinha({ valorX, valorY, legenda, titulo }) {
       {
         label: legenda,
         data: valorX,
-        backgroundColor: "red",
+        backgroundColor: paletaCoresPasteis[1],
       }
     ]
   };

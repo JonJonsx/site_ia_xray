@@ -4,7 +4,10 @@ import {
   Flex
 } from '@chakra-ui/react';
 import "chart.js/auto"
+import paletaCoresPasteis from "../../PaletaCoresPasteis";
 export default function GraficoPizza({ valorX, valorY, legenda, titulo }) {
+
+
 
 //   Funcao que define uma cor aleatoria
   const getRandomColor = () => {
@@ -22,7 +25,7 @@ export default function GraficoPizza({ valorX, valorY, legenda, titulo }) {
       {
         label: legenda,
         data: valorX,
-        backgroundColor: [getRandomColor(),getRandomColor()]
+        backgroundColor: paletaCoresPasteis
       }
     ]
   };

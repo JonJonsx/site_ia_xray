@@ -10,8 +10,51 @@ import GraficoPorDoenca from "./Graficos/GraficoPorDoenca";
 import GraficoPorGenero from "./Graficos/GraficoPorGenero";
 import CardDash from "./CardDash";
 import "../../styles/pages/DashBoard/DashBoard.css";
+import { useEffect, useState } from 'react'   
+import { requests } from '../../services/api'
 
 function DashBoard() {
+
+  const [countExames, setCountExames] = useState(0)
+  const [countFeedbacks, setCountFeedbaks] = useState(0)
+  const [countRightFeedbacks, setCountRightFeedbaks] = useState(0)
+
+  useEffect(() => {
+    const getCountAllExames = async () => {
+      await requests.graficos.getCountExames().then((response) => {
+        if (response.status === 200) {
+          setCountExames(response.data)
+        } else {
+          console.log("falha na requisicao", response.status)
+          setCountExames(0)
+        }
+      })
+    }
+    const getCountAllFeedbacks = async () => {
+      await requests.graficos.getCountFeedbacks().then((response) => {
+        if (response.status === 200) {
+          setCountFeedbaks(response.data)
+        } else {
+          console.log("falha na requisicao", response.status)
+          setCountFeedbaks(0)
+        }
+      })
+    }
+    const getCountAllRightFeedbacks = async () => {
+      await requests.graficos.getCountRightFeedbacks().then((response) => {
+        if (response.status === 200) {
+          setCountRightFeedbaks(response.data)
+        } else {
+          console.log("falha na requisicao", response.status)
+          setCountRightFeedbaks(0)
+        }
+      })
+    }
+    getCountAllExames()
+    getCountAllFeedbacks()
+    getCountAllRightFeedbacks()
+  }, []);
+
   return (
     <Flex
       w="100%"
@@ -30,7 +73,7 @@ function DashBoard() {
             rowSpan={1}
             colSpan={1}
             className="gridItemDash">
-            <CardDash valor={"9756"}
+            <CardDash valor={countExames}
                       legenda={"Quantidade De Exames"}/>
           </GridItem>
 
@@ -38,7 +81,7 @@ function DashBoard() {
             rowSpan={1}
             colSpan={1}
             className="gridItemDash">
-              <CardDash valor={"9756"}
+              <CardDash valor={countFeedbacks}
                         legenda={"Quantidade De Feedbacks"}/>
           </GridItem>
 
@@ -46,7 +89,7 @@ function DashBoard() {
             rowSpan={1}
             colSpan={1}
             className="gridItemDash">
-            <CardDash valor={"9756"} 
+            <CardDash valor={(countRightFeedbacks/countFeedbacks*100).toFixed(2)+"%"} 
                       legenda={"% de acerto do modelo"}/>
           </GridItem>
 

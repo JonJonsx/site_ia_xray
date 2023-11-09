@@ -7,6 +7,7 @@ import DashBoard from './pages/DashBoard/DashBoard';
 import App from './App';
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import PrivateRoute from './helpers/PrivateRoute';
 
 const router = createBrowserRouter([
     {
@@ -16,11 +17,15 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/',
-                element: <DashBoard />
+                element: 
+                    <PrivateRoute>
+                        <DashBoard />
+                    </PrivateRoute>                
             },
             {
                 path: '/controlpanel',
-                element: <ControlPanel />
+                element: 
+                        <ControlPanel />
             }
         ]
     }

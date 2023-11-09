@@ -1,39 +1,31 @@
+import { useEffect, useState } from 'react'
 import GraficoPizza from './tipoGrafico/GraficoPizza'
+import { requests } from '../../../services/api'
 
 export default function GraficoPorDoenca() {
-  // const [chartData, setChartData] = useState([{}])
+  const [chartData, setChartData] = useState({})
   
-  // const getExames = async () => {
-  //   try{
-  //     await requests.exames.getExames().then((response) => {
-  //       if (response.status === 200) {
-  //         return response.data
-  //       } else {
-  //         console.log("falha na requisicao", response.status)
-  //       }
-  //     })
-  //   }catch (e) {
-  //     console.warn("Deu erro na requisicao do grafico de Linha, ERRO: ", e)
-  //     return { exame: { date: "", quantidadeDeExames: 0 } }
-  //   }
-    
-  // }
-
-
-  // useEffect(() => {
-  //   const getValoresGrafico = async () => {
-  //     const data = await getExames()
-  //     setChartData(data)
-  //   }
-  //   getValoresGrafico()
-  // }, []);
-
+  useEffect(() => {
+    const getValoresDoenca = async () => {
+      await requests.graficos.getCountDoenca().then((response) => {
+        if (response.status === 200) {
+            setChartData(response.data)
+            console.log("Valores setados")
+            console.log([Object.values(chartData)])
+            console.log([Object.keys(chartData)])
+        } else {
+          console.log("falha na requisicao", response.status)
+        }
+      })
+    }
+    getValoresDoenca()
+  }, []);
 
   return (
     <GraficoPizza
-      valorX={[100,120,150]}
+      valorX={Object.values(chartData)}
       // chartData.map(exame => exame.quantidadeDeExames)
-      valorY={["pineumonia","cancer"]}
+      valorY={Object.keys(chartData)}
       // chartData.map(exame => exame.date)
       legenda="Grafico Por doença"
       titulo="Grafico Por doença" />

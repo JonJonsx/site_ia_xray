@@ -9,7 +9,8 @@ export default function GraficoExamesFeitos() {
     const getValoresGrafico = async () => {
       await requests.graficos.getVisaoMesAMes().then((response) => {
         if (response.status === 200) {
-          setChartData(response.data)
+          const dadosOrdenados = Object.fromEntries(Object.entries(response.data).sort());
+          setChartData(dadosOrdenados)
         } else {
           console.log("falha na requisicao", response.status)
           setChartData({"2023/1":"26"})
