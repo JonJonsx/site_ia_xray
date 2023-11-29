@@ -10,14 +10,35 @@ import ResultExame from "./ResultExame";
 import { RefreshCcw } from "react-feather";
 
 export default function Resultados() {
-  const [exames, setExames] = useState([])
   const [isEmpty, setIsEmpty] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  const [examesPorPaciente, setExamesPorPaciente] = useState([{
+    paciente: {},
+    listaExames: [{}],
+  }]);
 
   const getExames = async () => {
     await requests.exames.getExames().then((response) => {
       if (response.status === 200) {
-        setExames(response.data)
+        let exames = response.data
+        let listaPaciente = []
+        let listaIdPaciente = []
+        exames.map((exame) => {
+          if(listaIdPaciente.indexOf(exame.paciente.idPaciente) === -1) {
+            let examePaciente = {
+              paciente: exame.paciente,
+              listaExames: [exame]
+            }
+            listaPaciente.push(examePaciente)
+            listaIdPaciente.push(exame.paciente.idPaciente)
+          } else {
+            listaPaciente[listaIdPaciente.indexOf(exame.paciente.idPaciente)].listaExames.push(exame)
+          }
+        })
+        console.log("AAAAAAAA")
+        console.log(listaPaciente)
+        console.log(listaIdPaciente)
+        setExamesPorPaciente(listaPaciente)
       } else {
         console.log("falha na requisicao", response.status)
       }
@@ -33,7 +54,7 @@ export default function Resultados() {
         setIsEmpty(true)
         console.info("Erro na requisição dos Exames, Error", e)
       }
-    }
+    }   
     setIsLoading(false)
     getTodosExames()
   }, [isLoading, isEmpty]);
@@ -55,8 +76,8 @@ export default function Resultados() {
           {/* <a href="http://localhost:8080/imagem/00000003_000.png" download="teste.jpg">Texto bonito</a> */}
         </Flex>
         {
-          exames.map((exame, index) => (
-            <ResultExame paciente={exame.paciente.nomePaciente} key={index} resultado={exame.resultado} dadosExame={exame}/>
+          examesPorPaciente.map((content) => (
+            <ResultExame content={content} key={content.paciente.idPaciente}/>
           ))
         }
       </Box>

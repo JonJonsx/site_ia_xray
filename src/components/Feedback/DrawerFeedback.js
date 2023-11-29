@@ -39,15 +39,20 @@ export default function DrawerFeedback(props) {
     resolver: yupResolver(validationExam)
   })
 
-  const feadbackExame = (data) => requests.exames.putDarFeedback(dadosDrawer.id,data).then((response) => {
-    if(response.status === 200){
-      console.log("DEU CERTO")
-      onClose()
-    }
-  }).catch((error) => {
-    console.log("DEU ERRO", error)
-  })
-
+  const feadbackExame = (data) => {
+    const envioAPI = {
+      retornoModelo: dadosDrawer.resultado,
+      retornoMedico: data.feedback
+    } 
+    requests.exames.putDarFeedback(dadosDrawer.idExame,envioAPI).then((response) => {
+      if(response.status === 200){
+        console.log("DEU CERTO")
+        onClose()
+      }
+    }).catch((error) => {
+      console.log("DEU ERRO", error)
+    })
+  }
 
 
   return (
@@ -113,11 +118,11 @@ export default function DrawerFeedback(props) {
                   <Text>Anexos do Exame:</Text>
                   <Flex  justifyContent="space-between" align="center" background="#2ecc71" padding={3} borderRadius={8} mb="10px" mt="10px">
                     <Box>  
-                      <Image borderRadius={8} boxSize="50px" src='localhost:8080/imagem/00000003_000.png' alt='Dan Abramov'/>
+                      <Image borderRadius={8} boxSize="50px" src={"http://localhost:8080/imagem/"+dadosDrawer.imagem.pathImagem} alt='Dan Abramov'/>
                     </Box>
                     <Box>
                       <IconButton mr="10px" background="#3498db" color="#ffffff" icon={<Eye/>}></IconButton>
-                      <ButtonDownload imageURL="localhost:8080/imagem/00000003_000.png" imageName="imagem.jpg"/>
+                      <ButtonDownload imageURL={"http://localhost:8080/imagem/"+dadosDrawer.imagem.pathImagem} imageName="imagem.jpg"/>
                     </Box>
                   </Flex>
                 </Box>
@@ -125,7 +130,7 @@ export default function DrawerFeedback(props) {
                   <Text>FeedBack:</Text>
                   <Textarea
                     name="feedback"
-                    placeholder={dadosDrawer.feedbacks}
+                    placeholder="Dar feedback"
                     {...register('feedback')}/>
                     <Text className="error-message">{errors.feedback?.message}</Text>
                 </Box>

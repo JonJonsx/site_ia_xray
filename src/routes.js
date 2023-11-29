@@ -25,7 +25,10 @@ const router = createBrowserRouter([
             {
                 path: '/controlpanel',
                 element: 
+                    <PrivateRoute>
                         <ControlPanel />
+                    </PrivateRoute>
+
             }
         ]
     }

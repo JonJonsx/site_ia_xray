@@ -1,7 +1,8 @@
-import React from "react"
+import React, {useState} from "react"
 import { useForm } from "react-hook-form"
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
+import { v4 as uuidv4 } from 'uuid';
 import { requests } from "../../services/api";
 
 import {
@@ -24,32 +25,73 @@ import {
 import Dropzone from "./Dropzone"
 
 const validationExam = yup.object().shape({
-  patient: yup.string().required('O nome é obrigatório')
-  .max(100, 'O nome deve ter no máximo 100 caracteres')
-  .min(10, 'O nome deve ter no mínimo 10 caracteres'),
-  age: yup.string().required('A idade é obrigatória'),
-  sex: yup.string().required('O sexo do paciente é obrigatório'),
+  nomePaciente: yup.string().required('O nome é obrigatório'),
+  idadePaciente: yup.string().required('A idade é obrigatória'),
+  generoPaciente: yup.string().required('O sexo do paciente é obrigatório'),
+  emailPaciente: yup.string().required('O e-mail do paciente é obrigatório'),
 })
 
-export default function DrawerExame() {
+export default function DrawerExame(props) {
+  const { isPatient, paciente, followUp } = props
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = React.useRef()
+
+  function calcularIdade(dataNascimento) {
+    const dataNasc = new Date(dataNascimento);
+    const dataAtual = new Date();
+  
+    let idade = dataAtual.getFullYear() - dataNasc.getFullYear();
+  
+    const mesAtual = dataAtual.getMonth();
+    const mesNasc = dataNasc.getMonth();
+  
+    // Verifica se ainda não fez aniversário este ano
+    if (mesAtual < mesNasc || (mesAtual === mesNasc && dataAtual.getDate() < dataNasc.getDate())) {
+      idade--;
+    }
+  
+    return idade;
+  }
+
+  const [arquivo, setArquivo] = useState(null);
+
+  const handleDrop = (files) => {
+    const primeiroArquivo = files[0];
+    console.log(files)
+    setArquivo(primeiroArquivo);
+  };
 
   const { register, handleSubmit, formState: {errors} } = useForm({
     resolver: yupResolver(validationExam)
   })
 
-  const novoExame = (data) => requests.exames.postNovoExame(data).then((response) => { 
-    onClose()
-  }).catch((error) => {
-    console.log("DEU ERRO")
-  })
+   const novoExame = async (data) => {
+    let formData = new FormData();
+    const novoUUID = uuidv4();
+    data.idPaciente = isPatient ? paciente.idPaciente : novoUUID;
+    data.idadePaciente = isPatient ? paciente.idadePaciente : calcularIdade(data.idadePaciente)
 
+    console.log(data)
+
+    formData.append('detalhesPaciente', JSON.stringify(data))
+    formData.append('xray', arquivo)
+    formData.append('followUp', isPatient ? followUp : 0)
+
+    await requests.exames.postNovoExame(formData).then(resposta => {
+      console.log(resposta)
+    }).catch((err) => {
+      console.log(err)
+    })
+  }
 
 
   return (
     <>
-      <Button ref={btnRef} colorScheme='teal' onClick={onOpen}>
+      <Button ref={btnRef} colorScheme='teal' onClick={() => {
+        if (isPatient)
+          console.log(paciente)
+        onOpen()
+      }}>
         Adicionar Exame
       </Button>
       
@@ -70,39 +112,88 @@ export default function DrawerExame() {
 
           <DrawerBody>
           
-            <Stack>
-              <Box textColor="#000000">
-                <Text>Nome do paciente:</Text>
-                <Input
-                  name="patient"
-                  placeholder='Paciente'
-                  {...register('patient')}/>
-                <Text className="error-message">{errors.patient?.message}</Text>
-              </Box>
-              <Box textColor="#000000">
-                <Text>Idade do paciente:</Text>
-                <Input
-                  name="age"
-                  {...register('age')}
-                  type="date"/>
-                <Text className="error-message">{errors.age?.message}</Text>
-              </Box>
-              <Box textColor="#000000">
-                <Text>Sexo do paciente:</Text>
-                <Select placeholder='Select option' name="sex" {...register('sex')}>
-                  <option value='1'>Masculino</option>
-                  <option value='2'>Feminino</option>
-                  <option value='3'>Outro</option>
-                </Select>
-                <Text className="error-message">{errors.sex?.message}</Text>
-              </Box>
-              <Box>
-                <Text textColor="#000000">Arquivo de Radiografia:</Text>
-                <Dropzone />
-              </Box>
-            </Stack>
-            
-          
+            { isPatient ?
+              <Stack>
+                <Box textColor="#000000">
+                  <Text>Nome do paciente:</Text>
+                  <Input
+                    name="nomePaciente"
+                    placeholder='Paciente'
+                    value={isPatient ? paciente.nomePaciente : ""}
+                    {...register('nomePaciente')}/>
+                  <Text className="error-message">{errors.nomePaciente?.message}</Text>
+                </Box>
+                <Box textColor="#000000">
+                  <Text>Idade do paciente:</Text>
+                  <Input
+                    name="idadePaciente"
+                    {...register('idadePaciente')}
+                    value={isPatient ? paciente.idadePaciente : ""}
+                    type={isPatient ? "text" : "date"}/>
+                  <Text className="error-message">{errors.idadePaciente?.message}</Text>
+                </Box>
+                <Box textColor="#000000">
+                  <Text>E-mail:</Text>
+                  <Input
+                    name="emailPaciente"
+                    {...register('emailPaciente')}
+                    value={isPatient ? paciente.emailPaciente : ""}
+                    type="email"/>
+                  <Text className="error-message">{errors.emailPaciente?.message}</Text>
+                </Box>
+                <Box textColor="#000000">
+                  <Text>Sexo do paciente:</Text>
+                  <Select placeholder='Select option' value={isPatient ? paciente.generoPaciente : ""} name="generoPaciente" {...register('generoPaciente')}>
+                    <option value='M'>Masculino</option>
+                    <option value='F'>Feminino</option>
+                  </Select>
+                  <Text className="error-message">{errors.generoPaciente?.message}</Text>
+                </Box>
+                <Box>
+                  <Text textColor="#000000">Arquivo de Radiografia:</Text>
+                  <Dropzone onDrop={handleDrop}/>
+                </Box>
+              </Stack>
+              :
+              <Stack>
+                <Box textColor="#000000">
+                  <Text>Nome do paciente:</Text>
+                  <Input
+                    name="nomePaciente"
+                    placeholder='Paciente'
+                    {...register('nomePaciente')}/>
+                  <Text className="error-message">{errors.nomePaciente?.message}</Text>
+                </Box>
+                <Box textColor="#000000">
+                  <Text>Idade do paciente:</Text>
+                  <Input
+                    name="idadePaciente"
+                    {...register('idadePaciente')}
+                    type={isPatient ? "text" : "date"}/>
+                  <Text className="error-message">{errors.idadePaciente?.message}</Text>
+                </Box>
+                <Box textColor="#000000">
+                  <Text>E-mail:</Text>
+                  <Input
+                    name="emailPaciente"
+                    {...register('emailPaciente')}
+                    type="email"/>
+                  <Text className="error-message">{errors.emailPaciente?.message}</Text>
+                </Box>
+                <Box textColor="#000000">
+                  <Text>Sexo do paciente:</Text>
+                  <Select placeholder='Select option' name="generoPaciente" {...register('generoPaciente')}>
+                    <option value='M'>Masculino</option>
+                    <option value='F'>Feminino</option>
+                  </Select>
+                  <Text className="error-message">{errors.generoPaciente?.message}</Text>
+                </Box>
+                <Box>
+                  <Text textColor="#000000">Arquivo de Radiografia:</Text>
+                  <Dropzone onDrop={handleDrop}/>
+                </Box>
+              </Stack>
+            }
           </DrawerBody>
 
 

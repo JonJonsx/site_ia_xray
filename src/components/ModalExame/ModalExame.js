@@ -16,6 +16,8 @@ import {
   Flex,
   Input
 } from '@chakra-ui/react'
+import { ArrowRight } from "react-feather";
+import { requests } from "../../services/api";
 
 
 export default function ModalExame(props) {
@@ -34,49 +36,41 @@ export default function ModalExame(props) {
         onClick={onOpen}
         m={2}
       >{textoButton}</Button>
-      <Modal isOpen={isOpen} size="xl" onClose={onClose} >
+      <Modal isOpen={isOpen} size={"full"} onClose={onClose} >
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent maxW="80%" maxH="50%">
           <ModalHeader color="#000000">Resultados</ModalHeader>
           <ModalCloseButton bg="#e74c3c" />
-          <ModalBody color="#000000">
-            <Stack>
-              <Text fontSize='3xl' textAlign="center">Informações do Paciente</Text>
+          <Flex flexDirection={"row"} color="#000000">
+            <Stack padding={8}>
+              <Text fontSize='3xl' textAlign="center">Radiografia Enviada:</Text>
               <Box>
-                <Text>Paciente:</Text>
-                <Input 
-                isDisabled
-                placeholder={dadosModal.paciente.nomePaciente}/>
-              </Box>
-              <Box>
-                <Text>Sexo:</Text>
-                <Input isDisabled placeholder={dadosModal.paciente.generoPaciente === "F" ? "Feminino" : "Masculino"}/>
-              </Box>
-              <Box>
-                <Text>Data de nascimento:</Text>
-                <Input isDisabled placeholder={dadosModal.paciente.idadePaciente}/>
-              </Box>
-            </Stack>
-            <Stack>
-              <Text fontSize='3xl' textAlign="center">Resultado</Text>
-              <Box>
-                <Text>Resultado:</Text>
-                <Input isDisabled placeholder={dadosModal.resultado === "No Finding" ? "Nenhum problema encontrado na radiografia" : dadosModal.resultado }/>
-                <Flex justifyContent="center" alignItems="center" mt="5px">
-                  <Image src='https://www.msdmanuals.com/-/media/manual/professional/images/m/2/7/m2700245-tuberculosis-chest-x-ray-science-photo-library-high_pt.jpg?mw=704&amp;thn=0&amp;sc_lang=pt-br' boxSize='sm' alt='Dan Abramov'/>
+                <Flex justifyContent="center" alignItems="center" mt="5px" marginY={25} marginX={10}>
+                  {/* <Image src={requests.exames.getImagem(dadosModal.imagem.pathImagem)} boxSize='sm' alt='Dan Abramov'/> */}
+                  <img style={{maxHeight: "500px"}} src={"http://localhost:8080/imagem/"+dadosModal.imagem.pathImagem} alt='Imagem de envio da radiografia'/>
                 </Flex>
               </Box>
+            </Stack>
+            <Flex marginX={24} alignItems={"center"}>
+              <ArrowRight color={"black"} size={64} />  
+            </Flex>
+            <Stack padding={8} style={{maxHeight: "400px"}}>
+              <Text fontSize='3xl' textAlign="center">Resultado</Text>
               <Box>
-                <Text>Feedback:</Text>
-                <Input isDisabled placeholder={dadosModal.feedbacks}/>
+                <Flex justifyContent="center" alignItems="center" mt="5px">
+                  {/* <Image src={requests.exames.getImagem(dadosModal.imagem.pathImagem)} boxSize='sm' alt='Dan Abramov'/> */}
+                  <img style={{minHeight: "350px", width:"auto", objectPosition: "0px -30px"}} src={"http://localhost:8080/imagem/resultado/"+dadosModal.imagem.pathImagem} alt='Imagem de retorno da radiografia'/>
+                </Flex>
               </Box>
             </Stack>
-          </ModalBody>
+          </Flex>
 
-          <ModalFooter>
-            <Button colorScheme='blue' mr={3} onClick={onClose}>
-              Close
-            </Button>
+          <ModalFooter alignI={"left"}>
+            <Flex w={"100%"} flexDirection={"column"}>
+              <Text fontSize='xl'>Possíveis Doenças:</Text>
+              <Input value={dadosModal.resultado === "No Finding" ? "Nenhum problema encontrado na radiografia" : dadosModal.resultado }/>
+            </Flex>
+
           </ModalFooter>
         </ModalContent>
       </Modal>
