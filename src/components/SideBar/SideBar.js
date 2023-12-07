@@ -7,7 +7,7 @@ import {
   Text
 } from "@chakra-ui/react";
 import { React, useState }from "react";
-import { Menu, Home } from 'react-feather';
+import { Menu, Home, PieChart } from 'react-feather';
 import NavItem from "./NavItem";
 import "../../styles/components/sidebar.css";
 import {Link} from "react-router-dom";
@@ -50,8 +50,8 @@ function SideBar() {
             }
           }}
         />
-        <Link to="/" className="nav_item_link"><NavItem navSize={navSize} icon={Home} title="DashBoard"/></Link>
         <Link to="/controlpanel" className="nav_item_link"><NavItem navSize={navSize} icon={Home} title="Resultados"/></Link>
+        <Link to="/" className="nav_item_link"><NavItem navSize={navSize} icon={PieChart} title="DashBoard"/></Link>
       </Flex>
       <Flex
         p="5%"
